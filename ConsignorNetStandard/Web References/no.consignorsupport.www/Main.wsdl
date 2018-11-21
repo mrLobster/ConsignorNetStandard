@@ -1,0 +1,1383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.consignorsupport.no/ShipAdvisor" xmlns:s1="SoapAuthenticator" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.consignorsupport.no/ShipAdvisor" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">ShipAdvisor project engine. Filters products for a shopping article.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.consignorsupport.no/ShipAdvisor">
+      <s:element name="CancelChodOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelChodOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelChodOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelConfirmedOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelConfirmedOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelConfirmedOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmChodOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmChodOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmChodOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateConfirmedOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Shipment" type="tns:WebShopShipment" />
+            <s:element minOccurs="0" maxOccurs="1" name="Product" type="tns:SelectedProduct" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WebShopShipment">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WebShopId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChODId" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="InsuranceAmount" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="CODAmount" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lines" type="tns:ArrayOfWebShopLine" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExchangeRate" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Shopper" type="tns:Receiver" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sender" type="tns:SenderInfo" />
+          <s:element minOccurs="1" maxOccurs="1" name="RequestDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderAmount" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipLoadmeterMM" nillable="true" type="s:unsignedLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliveryDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Keywords" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="InvoiceAmount" nillable="true" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceCurrencyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PickupStartDatetime" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWebShopLine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WebShopLine" nillable="true" type="tns:WebShopLine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WebShopLine">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfPackages" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageWeight" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageHeight" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageLength" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageWidth" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="NullableDangerousGoods" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UNNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GoodsType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecycleType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackagesContents" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoadmeterMM" nillable="true" type="s:unsignedLong" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Receiver">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReceiverId" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Attention" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiverRef" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessageToCarrier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessageToDriver" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessageToReceiver" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CODKID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CODReference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SenderInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InstallationId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActorId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SelectedProduct">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WebShopProductId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DropPoint" type="tns:DropPointData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DropPointData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ChodProductCodes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ESId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoutingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Depot" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contact" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MapRefX" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="MapRefY" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Distance" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpeningHoursList" type="tns:ArrayOfOpeningHours" />
+          <s:element minOccurs="0" maxOccurs="1" name="RatingDataList" type="tns:ArrayOfRatingData" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeyValueList" type="tns:ArrayOfKeyValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOpeningHours">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OpeningHours" nillable="true" type="tns:OpeningHours" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OpeningHours">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Day" type="tns:DayOfWeek" />
+          <s:element minOccurs="0" maxOccurs="1" name="Open" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Close" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="DayOfWeek">
+        <s:restriction base="s:string">
+          <s:enumeration value="Sunday" />
+          <s:enumeration value="Monday" />
+          <s:enumeration value="Tuesday" />
+          <s:enumeration value="Wednesday" />
+          <s:enumeration value="Thursday" />
+          <s:enumeration value="Friday" />
+          <s:enumeration value="Saturday" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfRatingData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RatingData" nillable="true" type="tns:RatingData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RatingData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Weight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rate" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfKeyValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KeyValue" type="tns:KeyValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KeyValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:ValueType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ValueType">
+        <s:restriction base="s:string">
+          <s:enumeration value="String" />
+          <s:enumeration value="Integer" />
+          <s:enumeration value="Decimal" />
+          <s:enumeration value="Date" />
+          <s:enumeration value="Base64" />
+          <s:enumeration value="EplScript" />
+          <s:enumeration value="ZplScript" />
+          <s:enumeration value="Pdf" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateConfirmedOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateConfirmedOrderResult" type="tns:OrderOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ChODId" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExportCustomDropPoints">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WebShopId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportCustomDropPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportCustomDropPointsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportWebShop">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WebShopId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportWebShopResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportWebShopResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebShopProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WebShopId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebShopProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWebShopProductsResult" type="tns:GetWebShopProductsOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetWebShopProductsOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="WebShop" type="tns:CHOD" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResponseStatus" type="tns:StatusCode" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CHOD">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CHODProfileId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallationId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActorId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowExactDistanceCalculation" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryTypes" type="tns:ArrayOfDeliveryType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDeliveryType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DeliveryType" nillable="true" type="tns:DeliveryType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DeliveryType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Order" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Visible" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisplayedInfos" type="tns:ArrayOfDisplayedInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDisplayedInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DisplayedInfo" nillable="true" type="tns:DisplayedInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DisplayedInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Order" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Visible" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Product" nillable="true" type="tns:Product" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Product">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ChodProductCode" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomProductDBId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomPriceCalculationId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccessLicenseNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductServices" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryTime" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinShipWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxShipWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinPackWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxPackWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinHeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxHeight" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinLength" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxLength" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinWidth" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxWidth" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinLineVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxLineVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinPackVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxPackVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinShipVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxShipVolume" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsDangerousGoods" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsCOD" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="FixedPrice" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinimumPrice" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CalculatedWeight" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceCurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Include_CountryList" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exclude_CountryList" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Include_PostCodes" type="tns:ArrayOfRange" />
+          <s:element minOccurs="0" maxOccurs="1" name="Exclude_PostCodes" type="tns:ArrayOfRange" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsPickDropPoint" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="GoodsType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecycleType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderAmountFreightLimit" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinLoadmeter" nillable="true" type="s:unsignedLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxLoadmeter" nillable="true" type="s:unsignedLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinShipLoadmeter" nillable="true" type="s:unsignedLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxShipLoadmeter" nillable="true" type="s:unsignedLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="SummarizeDimensions" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableOnlyOn_DayList" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActorAlias" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeywordList" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="LineAdvancedFilter" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipAdvancedFilter" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="WebShopProductId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceType2" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsCustomDropPoint" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreSetting" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoutingCodesParams" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Range" nillable="true" type="tns:Range" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Range">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="From" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="To" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="StatusCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success" />
+          <s:enumeration value="Failure" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetChodOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="tns:OrderStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="OrderStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="Initialized" />
+          <s:enumeration value="ConfirmedByUser" />
+          <s:enumeration value="CanceledByUser" />
+          <s:enumeration value="ConfirmedByWebShop" />
+          <s:enumeration value="CanceledByWebShop" />
+          <s:enumeration value="SentToPortal" />
+          <s:enumeration value="RollbackedFromPortal" />
+          <s:enumeration value="All" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetChodOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChodOrderResult" type="tns:WebShopShipment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClosestDropPoint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="productConceptID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="installationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClosestDropPointResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClosestDropPointResult" type="tns:DropPointData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFreightProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="deliveryTypeOrder" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFreightProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFreightProductsResult" type="tns:ProductsWrapper" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProductsWrapper">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInfoList" type="tns:ArrayOfSuitedProductInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSuitedProductInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SuitedProductInfo" nillable="true" type="tns:SuitedProductInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SuitedProductInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WebShopProductId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConceptId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomProductDBId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceIds" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GoodsType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecycleType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InfoFromCarrier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsPickDropPoint" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price2" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductActorAlias" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductCarrierCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SupportsCustomDropPoint" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFreightProductsForShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Shipment" type="tns:WebShopShipment" />
+            <s:element minOccurs="1" maxOccurs="1" name="deliveryTypeOrder" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFreightProductsForShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFreightProductsForShipmentResult" type="tns:ProductsWrapper" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Shipment" type="tns:WebShopShipment" />
+            <s:element minOccurs="0" maxOccurs="1" name="WebShopProductIds" type="tns:ArrayOfLong" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLong">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="long" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPricesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPricesResult" type="tns:ProductsWrapper" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetShipmentByOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="installationID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="actorID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetShipmentByOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetShipmentByOrderResult" type="tns:GetShipmentByOrderOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetShipmentByOrderOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResponseStatus" type="tns:StatusCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessages" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Shipments" type="tns:ArrayOfPortalShipment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPortalShipment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PortalShipment" nillable="true" type="tns:PortalShipment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PortalShipment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Shipment" type="tns:WebShopShipment" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebShop" type="tns:SenderInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product" type="tns:PortalProduct" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PortalProduct">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WebShopProductId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConceptId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CustomProductDBId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceIds" type="tns:ArrayOfInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DropPoint" type="tns:DropPointData" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ImportCustomDropPoints">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WebShopId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteExisting" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportCustomDropPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportCustomDropPointsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportWebShop">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileContent" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportWebShopResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportWebShopResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OrderInitialize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Shipment" type="tns:WebShopShipment" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReturnUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CancelUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Hash" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OrderInitializeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderInitializeResult" type="tns:OrderInitializeOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderInitializeOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ChODId" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RedirectUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchDPsForMoreProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="webShopId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="productConceptIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="webshopProductIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="installationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="limit" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchDPsForMoreProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchDPsForMoreProductsResult" type="tns:ArrayOfDropPointData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDropPointData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DropPointData" nillable="true" type="tns:DropPointData" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchForDropPoints">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="productConceptID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="installationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="postCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="limit" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchForDropPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchForDropPointsResult" type="tns:ArrayOfDropPointData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateChodOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChODId" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="shipment" type="tns:WebShopShipment" />
+            <s:element minOccurs="0" maxOccurs="1" name="selectedProduct" type="tns:SelectedProduct" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="tns:OrderStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateChodOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateChodOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="SoapAuthenticator">
+      <s:element name="ServiceAuthenticationHeader" type="s1:ServiceAuthenticationHeader" />
+      <s:complexType name="ServiceAuthenticationHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsEncrypted" nillable="true" type="s:boolean" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CancelChodOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelChodOrder" />
+  </wsdl:message>
+  <wsdl:message name="CancelChodOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelChodOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelChodOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelConfirmedOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelConfirmedOrder" />
+  </wsdl:message>
+  <wsdl:message name="CancelConfirmedOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelConfirmedOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelConfirmedOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmChodOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmChodOrder" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmChodOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmChodOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmChodOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="CreateConfirmedOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateConfirmedOrder" />
+  </wsdl:message>
+  <wsdl:message name="CreateConfirmedOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateConfirmedOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateConfirmedOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ExportCustomDropPointsSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportCustomDropPoints" />
+  </wsdl:message>
+  <wsdl:message name="ExportCustomDropPointsSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportCustomDropPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExportCustomDropPointsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ExportWebShopSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportWebShop" />
+  </wsdl:message>
+  <wsdl:message name="ExportWebShopSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportWebShopResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExportWebShopServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetWebShopProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebShopProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetWebShopProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebShopProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebShopProductsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetChodOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChodOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetChodOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChodOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChodOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetClosestDropPointSoapIn">
+    <wsdl:part name="parameters" element="tns:GetClosestDropPoint" />
+  </wsdl:message>
+  <wsdl:message name="GetClosestDropPointSoapOut">
+    <wsdl:part name="parameters" element="tns:GetClosestDropPointResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetClosestDropPointServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFreightProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFreightProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsForShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFreightProductsForShipment" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsForShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFreightProductsForShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFreightProductsForShipmentServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetPricesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrices" />
+  </wsdl:message>
+  <wsdl:message name="GetPricesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPricesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPricesServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentByOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetShipmentByOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentByOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetShipmentByOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentByOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ImportCustomDropPointsSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportCustomDropPoints" />
+  </wsdl:message>
+  <wsdl:message name="ImportCustomDropPointsSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportCustomDropPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportCustomDropPointsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="ImportWebShopSoapIn">
+    <wsdl:part name="parameters" element="tns:ImportWebShop" />
+  </wsdl:message>
+  <wsdl:message name="ImportWebShopSoapOut">
+    <wsdl:part name="parameters" element="tns:ImportWebShopResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportWebShopServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="OrderInitializeSoapIn">
+    <wsdl:part name="parameters" element="tns:OrderInitialize" />
+  </wsdl:message>
+  <wsdl:message name="OrderInitializeSoapOut">
+    <wsdl:part name="parameters" element="tns:OrderInitializeResponse" />
+  </wsdl:message>
+  <wsdl:message name="OrderInitializeServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchDPsForMoreProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchDPsForMoreProducts" />
+  </wsdl:message>
+  <wsdl:message name="SearchDPsForMoreProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchDPsForMoreProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchDPsForMoreProductsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchForDropPointsSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchForDropPoints" />
+  </wsdl:message>
+  <wsdl:message name="SearchForDropPointsSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchForDropPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchForDropPointsServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateChodOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateChodOrder" />
+  </wsdl:message>
+  <wsdl:message name="UpdateChodOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateChodOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateChodOrderServiceAuthenticationHeader">
+    <wsdl:part name="ServiceAuthenticationHeader" element="s1:ServiceAuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:portType name="ShipAdvisorWSSoap">
+    <wsdl:operation name="CancelChodOrder">
+      <wsdl:input message="tns:CancelChodOrderSoapIn" />
+      <wsdl:output message="tns:CancelChodOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelConfirmedOrder">
+      <wsdl:input message="tns:CancelConfirmedOrderSoapIn" />
+      <wsdl:output message="tns:CancelConfirmedOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmChodOrder">
+      <wsdl:input message="tns:ConfirmChodOrderSoapIn" />
+      <wsdl:output message="tns:ConfirmChodOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateConfirmedOrder">
+      <wsdl:input message="tns:CreateConfirmedOrderSoapIn" />
+      <wsdl:output message="tns:CreateConfirmedOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportCustomDropPoints">
+      <wsdl:input message="tns:ExportCustomDropPointsSoapIn" />
+      <wsdl:output message="tns:ExportCustomDropPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportWebShop">
+      <wsdl:input message="tns:ExportWebShopSoapIn" />
+      <wsdl:output message="tns:ExportWebShopSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebShopProducts">
+      <wsdl:input message="tns:GetWebShopProductsSoapIn" />
+      <wsdl:output message="tns:GetWebShopProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChodOrder">
+      <wsdl:input message="tns:GetChodOrderSoapIn" />
+      <wsdl:output message="tns:GetChodOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClosestDropPoint">
+      <wsdl:input message="tns:GetClosestDropPointSoapIn" />
+      <wsdl:output message="tns:GetClosestDropPointSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProducts">
+      <wsdl:input message="tns:GetFreightProductsSoapIn" />
+      <wsdl:output message="tns:GetFreightProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProductsForShipment">
+      <wsdl:input message="tns:GetFreightProductsForShipmentSoapIn" />
+      <wsdl:output message="tns:GetFreightProductsForShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrices">
+      <wsdl:input message="tns:GetPricesSoapIn" />
+      <wsdl:output message="tns:GetPricesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentByOrder">
+      <wsdl:input message="tns:GetShipmentByOrderSoapIn" />
+      <wsdl:output message="tns:GetShipmentByOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportCustomDropPoints">
+      <wsdl:input message="tns:ImportCustomDropPointsSoapIn" />
+      <wsdl:output message="tns:ImportCustomDropPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportWebShop">
+      <wsdl:input message="tns:ImportWebShopSoapIn" />
+      <wsdl:output message="tns:ImportWebShopSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrderInitialize">
+      <wsdl:input message="tns:OrderInitializeSoapIn" />
+      <wsdl:output message="tns:OrderInitializeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchDPsForMoreProducts">
+      <wsdl:input message="tns:SearchDPsForMoreProductsSoapIn" />
+      <wsdl:output message="tns:SearchDPsForMoreProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchForDropPoints">
+      <wsdl:input message="tns:SearchForDropPointsSoapIn" />
+      <wsdl:output message="tns:SearchForDropPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChodOrder">
+      <wsdl:input message="tns:UpdateChodOrderSoapIn" />
+      <wsdl:output message="tns:UpdateChodOrderSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ShipAdvisorWSSoap" type="tns:ShipAdvisorWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelChodOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CancelChodOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelConfirmedOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CancelConfirmedOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelConfirmedOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmChodOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ConfirmChodOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConfirmChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateConfirmedOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CreateConfirmedOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CreateConfirmedOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportCustomDropPoints">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ExportCustomDropPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ExportCustomDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportWebShop">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ExportWebShop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ExportWebShopServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebShopProducts">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetWebShopProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetWebShopProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChodOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetChodOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClosestDropPoint">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetClosestDropPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetClosestDropPointServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProducts">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetFreightProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFreightProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProductsForShipment">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetFreightProductsForShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFreightProductsForShipmentServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrices">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetPrices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPricesServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentByOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetShipmentByOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetShipmentByOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportCustomDropPoints">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ImportCustomDropPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ImportCustomDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportWebShop">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ImportWebShop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ImportWebShopServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrderInitialize">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/OrderInitialize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OrderInitializeServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchDPsForMoreProducts">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/SearchDPsForMoreProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchDPsForMoreProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchForDropPoints">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/SearchForDropPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SearchForDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChodOrder">
+      <soap:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/UpdateChodOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ShipAdvisorWSSoap12" type="tns:ShipAdvisorWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelChodOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CancelChodOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelConfirmedOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CancelConfirmedOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelConfirmedOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmChodOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ConfirmChodOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConfirmChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateConfirmedOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/CreateConfirmedOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CreateConfirmedOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportCustomDropPoints">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ExportCustomDropPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ExportCustomDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportWebShop">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ExportWebShop" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ExportWebShopServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebShopProducts">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetWebShopProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetWebShopProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChodOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetChodOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClosestDropPoint">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetClosestDropPoint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetClosestDropPointServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProducts">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetFreightProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFreightProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFreightProductsForShipment">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetFreightProductsForShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFreightProductsForShipmentServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrices">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetPrices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPricesServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentByOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/GetShipmentByOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetShipmentByOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportCustomDropPoints">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ImportCustomDropPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ImportCustomDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportWebShop">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/ImportWebShop" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ImportWebShopServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrderInitialize">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/OrderInitialize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OrderInitializeServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchDPsForMoreProducts">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/SearchDPsForMoreProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchDPsForMoreProductsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchForDropPoints">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/SearchForDropPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SearchForDropPointsServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChodOrder">
+      <soap12:operation soapAction="http://ws.consignorsupport.no/ShipAdvisor/UpdateChodOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateChodOrderServiceAuthenticationHeader" part="ServiceAuthenticationHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ShipAdvisorWS">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">ShipAdvisor project engine. Filters products for a shopping article.</wsdl:documentation>
+    <wsdl:port name="ShipAdvisorWSSoap" binding="tns:ShipAdvisorWSSoap">
+      <soap:address location="http://www.consignorsupport.no/ShipAdvisor/Main.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ShipAdvisorWSSoap12" binding="tns:ShipAdvisorWSSoap12">
+      <soap12:address location="http://www.consignorsupport.no/ShipAdvisor/Main.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
